@@ -49,7 +49,3 @@ func e4CountLines(f *os.File, c map[string]map[string]int) {
 		c[text][name]++
 	}
 }
-
-func main() {
-	e4()
-}
