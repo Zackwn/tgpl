@@ -9,10 +9,6 @@ import (
 	"os"
 )
 
-func main() {
-	e5Lissajous()
-}
-
 func e5Lissajous() {
 	// black and green
 	var palette = []color.Color{color.RGBA{52, 56, 55, 1}, color.RGBA{15, 155, 142, 1}}
