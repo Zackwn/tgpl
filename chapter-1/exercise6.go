@@ -10,10 +10,6 @@ import (
 	"time"
 )
 
-func main() {
-	e6Lissajous()
-}
-
 func e6Lissajous() {
 	// black and green
 	var palette = []color.Color{
