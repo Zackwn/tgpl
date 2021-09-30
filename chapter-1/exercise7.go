@@ -13,7 +13,7 @@ func e7() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		// io.Copy(resp.Body, os.Stdout)
+		// io.Copy(os.Stdout, resp.Body)
 		e7Copy(resp.Body, os.Stdout)
 		resp.Body.Close()
 	}
