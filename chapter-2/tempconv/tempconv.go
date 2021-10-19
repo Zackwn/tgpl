@@ -15,6 +15,6 @@ const (
 	FreezingC     Celsius = 0
 )
 
-func (c Celsius) String() string    { return fmt.Sprint(c) + "°C" }
-func (f Fahrenheit) String() string { return fmt.Sprint(f) + "°F" }
-func (k Kelvin) String() string     { return fmt.Sprint(k) + "K" }
+func (c Celsius) String() string    { return fmt.Sprintf("%g°C", c) }
+func (f Fahrenheit) String() string { return fmt.Sprintf("%g°F", f) }
+func (k Kelvin) String() string     { return fmt.Sprintf("%gK", k) }
