@@ -10,30 +10,43 @@ import (
 	"time"
 )
 
+// func main() {
+// 	http.HandleFunc("/test/", func(w http.ResponseWriter, r *http.Request) {
+// 		e11()
+// 		w.WriteHeader(http.StatusOK)
+// 		w.Write([]byte("OK"))
+// 	})
+// 	http.HandleFunc("/info/", func(w http.ResponseWriter, r *http.Request) {
+// 		fmt.Println("current goroutines:", runtime.NumGoroutine())
+// 		w.WriteHeader(http.StatusOK)
+// 		w.Write([]byte("OK"))
+// 	})
+// 	fmt.Println("initial goroutines:", runtime.NumGoroutine())
+// 	http.ListenAndServe(":8080", nil)
+// }
+
 func e11() {
 	start := time.Now()
 	ch := make(chan string)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	defer close(ch)
 	for _, url := range os.Args[1:] {
-		go e11Fetch(url, ch)
+		go e11Fetch(url, ch, ctx)
 	}
-	for range os.Args[1:] {
-		fmt.Println(<-ch)
-	}
+	fmt.Println(<-ch)
 	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
+	return
 }
 
-func e11Fetch(url string, ch chan<- string) {
-	// Cancelling = Context
-	// To make a request with a specified context.Context, use NewRequestWithContext and DefaultClient.Do
+func e11Fetch(url string, ch chan<- string, ctx context.Context) {
 	start := time.Now()
-	timeout := 5 * time.Second
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
 	req, _ := http.NewRequestWithContext(ctx, "GET", url, nil)
-	fmt.Println(req.Cancel, cancel)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		ch <- err.Error()
+		// ch will be closed when the context is cancelled
+		// therefore can't send to ch
+		// ch <- err.Error()
 		return
 	}
 	defer resp.Body.Close()
