@@ -32,20 +32,9 @@ func worker(jobs <-chan int, results chan<- int) {
 	close(results)
 }
 
-var mx sync.Mutex
-var memo = map[int]int{}
-
 func fib(n int) int {
 	if n <= 1 {
 		return n
 	}
-	mx.Lock()
-	v, ok := memo[n]
-	if ok {
-		return v
-	}
-	v = fib(n-1) + fib(n-2)
-	memo[n] = v
-	mx.Unlock()
-	return v
+	return fib(n-1) + fib(n-2)
 }
