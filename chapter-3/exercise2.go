@@ -18,10 +18,6 @@ const (
 
 var sin30, cos30 = math.Sin(angle), math.Cos(angle) // sin(30°), cos(30°)
 
-func main() {
-	e2()
-}
-
 func e2() {
 	file, err := os.Create("surface.svg")
 	if err != nil {
