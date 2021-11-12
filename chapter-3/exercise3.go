@@ -16,10 +16,6 @@ const (
 	angle         = math.Pi / 6         // angle of x, y axes (=30°)
 )
 
-func main() {
-	e3()
-}
-
 var sin30, cos30 = math.Sin(angle), math.Cos(angle) // sin(30°), cos(30°)
 
 type CornerType int
